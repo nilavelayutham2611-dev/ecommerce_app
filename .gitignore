@@ -1,0 +1,16 @@
+# Environment files
+.env
+.env.*
+
+# Flutter generated files
+.dart_tool/
+.packages
+build/
+
+# IDE files
+.idea/
+.vscode/
+
+# Android signing
+*.keystore
+key.properties
