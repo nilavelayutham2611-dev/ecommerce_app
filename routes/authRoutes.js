@@ -7,6 +7,7 @@ const {
   getProfile,
 } = require("../controllers/authController");
 
+
 const authMiddleware =
   require("../middleware/authMiddleware");
 
