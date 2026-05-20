@@ -4,8 +4,9 @@ require("dotenv").config();
 
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
-const productRoutes =
-require("./routes/productRoutes");
+const productRoutes = require("./routes/productRoutes");
+const cartRoutes = require("./routes/cartRoutes");
+const orderRoutes = require("./routes/orderRoutes");
 
 connectDB();
 
@@ -15,10 +16,9 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
-app.use(
- "/api/products",
- productRoutes
-);
+app.use("/api/products", productRoutes);
+app.use("/api/cart", cartRoutes);
+app.use("/api/orders",orderRoutes);
 
 app.get("/", (req, res) => {
   res.send("E-Commerce API Running...");
