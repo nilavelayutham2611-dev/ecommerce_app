@@ -1,12 +1,13 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import '../models/product_model.dart';
 
 class ApiService {
 
   // Base URL
   static const String baseUrl =
-      'http://10.0.2.2:5000/api';
+      'http://10.162.111.237:5000/api';
 
   // LOGIN API
   static Future<Map<String, dynamic>>
@@ -30,7 +31,7 @@ class ApiService {
             password,
       }),
     );
-
+    print(response.body);
     return jsonDecode(
       response.body,
     );
@@ -64,4 +65,39 @@ class ApiService {
       'token',
     );
   }
+
+  // GET PRODUCTS
+static Future<List<ProductModel>>
+    getProducts() async {
+
+  final response =
+      await http.get(
+    Uri.parse(
+      '$baseUrl/products',
+    ),
+  );
+
+  if (response.statusCode ==
+      200) {
+
+    List data =
+        jsonDecode(
+      response.body,
+    );
+
+    return data
+        .map(
+          (product) =>
+              ProductModel
+                  .fromJson(
+            product,
+          ),
+        )
+        .toList();
+  }
+
+  throw Exception(
+    "Failed to load products",
+  );
+}
 }
