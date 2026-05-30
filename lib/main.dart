@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'screens/home_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/splash_screen.dart';
+import 'package:provider/provider.dart';
+import 'providers/cart_provider.dart';
 
 void main() {
   runApp(
@@ -19,7 +21,12 @@ class MyApp
   Widget build(
       BuildContext context) {
 
-    return MaterialApp(
+    return ChangeNotifierProvider(
+  create: (_) =>
+      CartProvider()
+        ..loadCart(),
+
+  child: MaterialApp(
       debugShowCheckedModeBanner:
           false,
 
@@ -39,6 +46,6 @@ class MyApp
             (context) =>
                 const HomeScreen(),
       },
-    );
+    ),);
   }
 }

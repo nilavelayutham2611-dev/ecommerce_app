@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import '../models/product_model.dart';
 import '../services/api_service.dart';
-
+import 'package:provider/provider.dart';
+import '../providers/cart_provider.dart';
 class ProductDetailsScreen
     extends StatefulWidget {
 
@@ -33,10 +34,11 @@ class _ProductDetailsScreenState
 
     try {
 
-      await ApiService
-          .addToCart(
-        widget.product.id,
-      );
+      await context
+    .read<CartProvider>()
+    .addToCart(
+      widget.product.id,
+    );
 
       if (!mounted) return;
 

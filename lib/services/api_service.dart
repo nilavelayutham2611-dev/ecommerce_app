@@ -300,4 +300,40 @@ static Future<void>
     'token',
   );
 }
+
+// SIGNUP
+static Future<void>
+    signup({
+  required String name,
+  required String email,
+  required String password,
+}) async {
+
+  final response =
+      await http.post(
+    Uri.parse(
+      '$baseUrl/auth/signup',
+    ),
+
+    headers: {
+      'Content-Type':
+          'application/json',
+    },
+
+    body: jsonEncode({
+      'name': name,
+      'email': email,
+      'password':
+          password,
+    }),
+  );
+
+  if (response.statusCode !=
+      201) {
+
+    throw Exception(
+      "Signup failed",
+    );
+  }
+}
 }

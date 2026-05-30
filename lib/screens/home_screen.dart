@@ -4,6 +4,8 @@ import '../services/api_service.dart';
 import 'cart_screen.dart';
 import 'orders_screen.dart';
 import 'product_details_screen.dart';
+import 'package:provider/provider.dart';
+import '../providers/cart_provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -111,9 +113,65 @@ void searchProduct(
                 ),
               );
             },
-            icon: const Icon(
-              Icons.shopping_cart,
+            icon: Consumer<
+    CartProvider>(
+  builder:
+      (
+        context,
+        cartProvider,
+        child,
+      ) {
+
+    return Stack(
+      children: [
+
+        const Icon(
+          Icons
+              .shopping_cart,
+        ),
+
+        if (cartProvider
+                .cartCount >
+            0)
+          Positioned(
+            right: 0,
+            child:
+                Container(
+              padding:
+                  const EdgeInsets
+                      .all(
+                          4),
+
+              decoration:
+                  const BoxDecoration(
+                color:
+                    Colors.red,
+
+                shape:
+                    BoxShape
+                        .circle,
+              ),
+
+              child: Text(
+                cartProvider
+                    .cartCount
+                    .toString(),
+
+                style:
+                    const TextStyle(
+                  color:
+                      Colors.white,
+
+                  fontSize:
+                      10,
+                ),
+              ),
             ),
+          ),
+      ],
+    );
+  },
+),
           ),
           IconButton(
   onPressed: () async {
